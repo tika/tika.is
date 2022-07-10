@@ -14,14 +14,14 @@ interface Repo {
     stars: number;
     fork_count: number;
     url: string;
-    languageColors;
+    languageColors: string;
 }
 
 interface GithubRepository {
     full_name: string;
     description: string;
     fork: boolean;
-    url: string;
+    html_url: string;
     stargazers_count: number;
     forks_count: number;
     license: string;

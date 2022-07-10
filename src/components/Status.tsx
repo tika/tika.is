@@ -2,6 +2,7 @@ import { LanyardData, LanyardWebsocket, useLanyard } from "react-use-lanyard";
 import { StatusItem } from "./StatusItem";
 import config from "../../tikac.json";
 import Loader from "react-ts-loaders/dist";
+import { SiSpotify, SiVisualstudiocode, SiZeromq } from "react-icons/si";
 
 interface StatusProps {
     lanyard: LanyardData | undefined;
@@ -11,35 +12,28 @@ export default function Status(props: StatusProps) {
     const status = props.lanyard;
 
     if (!status || !status.activities || status.activities.length === 0) {
-        return <StatusItem heading={config.inactive_text} subtext={""} />;
+        return <StatusItem text={config.inactive_text} icon={SiZeromq} />;
     }
 
     const { name, details, assets, application_id, ...rest } =
         status.activities[0];
 
     if (assets && application_id) {
-        const { name: heading, details: subtext } = getText({ name, details });
+        const { name: heading, details: text } = getText({ name, details });
 
-        return (
-            <StatusItem
-                heading={heading}
-                subtext={subtext}
-                imageURL={getIconURL(application_id, assets.large_image)}
-            />
-        );
+        return <StatusItem text={text} icon={SiVisualstudiocode} />;
     }
 
     if (status.spotify) {
         return (
             <StatusItem
-                heading={`listening to **Spotify**`}
-                subtext={`${status.spotify.song} by ${status.spotify.artist}`}
-                imageURL={status.spotify.album_art_url}
+                text={`listening to ${status.spotify.artist.split(";")[0]}`}
+                icon={SiSpotify}
             />
         );
     }
 
-    return <StatusItem heading={config.inactive_text} subtext={""} />;
+    return <StatusItem text={config.inactive_text} icon={SiZeromq} />;
 }
 
 type Info = {
@@ -67,8 +61,4 @@ function getText({ name, details }: Info): Info & { details: string } {
         name: apps[0].heading,
         details: subheading,
     };
-}
-
-function getIconURL(appId: string, assetId: string) {
-    return `https://cdn.discordapp.com/app-assets/${appId}/${assetId}.png`;
 }

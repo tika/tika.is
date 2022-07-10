@@ -1,32 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import config from "../../tikac.json";
+import { IconType } from "react-icons/lib";
 
 interface StatusItemProps {
-    imageURL?: string;
-    heading: string;
-    subtext: string;
-    altText?: string;
+    text: string;
+    icon: IconType;
 }
 
 export function StatusItem(props: StatusItemProps) {
     return (
         <div className="flex items-center gap-4">
-            <div className={"h-16 w-16 relative"}>
-                <Image
-                    src={props.imageURL ?? config.inactive_img}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded"
-                    alt={props.altText ?? "Active app icon"}
-                />
-            </div>
-            <div>
-                <FormattedText className="font-semibold">
-                    {props.heading}
-                </FormattedText>
-                <FormattedText>{props.subtext}</FormattedText>
-            </div>
+            <span>{props.icon({ className: "h-6 w-6 text-theme" })}</span>
+            <span>{props.text}</span>
         </div>
     );
 }

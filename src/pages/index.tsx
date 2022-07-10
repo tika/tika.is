@@ -72,7 +72,7 @@ export default function Home(props: Props) {
                         href="https://github.com/tika/"
                         className="underline cursor-pointer hover:text-theme"
                     >
-                        my github
+                        my GitHub
                     </Link>
                     . I primarily use GitHub to keep a backup for my code, and
                     since it&apos;s hosted on the cloud, I can share it with
@@ -91,6 +91,17 @@ export default function Home(props: Props) {
                     </Link>
                     .
                 </h2>
+                <div className="flex flex-col gap-2 mt-8">
+                    {props.crucial.repos
+                        .filter((it) =>
+                            config.favourite_projects.includes(
+                                it.name.toLowerCase()
+                            )
+                        )
+                        .map((it, i) => (
+                            <ListProjectItem project={it} />
+                        ))}
+                </div>
             </div>
 
             <div className="my-24">
@@ -116,7 +127,6 @@ export default function Home(props: Props) {
                     <Technology name="Redis" icon={SiRedis} />
                 </div>
             </div>
-            <ListProjectItem project={props.crucial.repos[0]} />
         </div>
     );
 }

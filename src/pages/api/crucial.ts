@@ -56,12 +56,12 @@ export function toRepo(x: GithubRepository, colors: any): Repo {
             .join("/"),
         description: x.description,
         forked: x.fork,
-        url: x.url,
+        url: x.html_url,
         stars: x.stargazers_count,
         fork_count: x.forks_count,
         license: x.license,
         language: x.language,
         visibility: x.visibility,
-        languageColors: colors[x.language],
+        languageColors: colors[x.language] ? colors[x.language].color : "white", // if this color isn't found
     };
 }

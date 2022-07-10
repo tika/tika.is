@@ -9,6 +9,10 @@ module.exports = {
             colors: {
                 theme: "#8ECBCF",
             },
+            minWidth: {
+                48: "calc(48 * 0.25rem)",
+                32: "calc(32 * 0.25rem)",
+            },
         },
     },
     plugins: [],

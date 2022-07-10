@@ -25,6 +25,7 @@ import {
     SiYarn,
 } from "react-icons/si";
 import { ListProjectItem } from "../components/ListProjectItem";
+import Link from "next/link.js";
 
 interface Props {
     crucial: CrucialData;
@@ -64,19 +65,19 @@ export default function Home(props: Props) {
             <div ref={next} className="my-24">
                 <h1 className="text-3xl font-semibold">Projects</h1>
                 <h2>
-                    Primarily focused on web development, I've crafted{" "}
+                    Primarily focused on web development, I&apos;ve crafted{" "}
                     {props.crucial.privateRepoCount} private &{" "}
                     {props.crucial.publicRepoCount} public repositories on{" "}
-                    <a
+                    <Link
                         href="https://github.com/tika/"
                         className="underline cursor-pointer hover:text-theme"
                     >
                         my github
-                    </a>
+                    </Link>
                     . I primarily use GitHub to keep a backup for my code, and
-                    since it's hosted on the cloud, I can share it with others.
-                    I'm interested in open sourcing and would like to be
-                    involved in more open source projects in the future.
+                    since it&apos;s hosted on the cloud, I can share it with
+                    others. I&apos;m interested in open sourcing and would like
+                    to be involved in more open source projects in the future.
                     <br />
                     <br />
                     Below is a list of a few projects. While not exhaustive,
@@ -95,9 +96,9 @@ export default function Home(props: Props) {
             <div className="my-24">
                 <h1 className="text-3xl font-semibold">Technologies</h1>
                 <h2>
-                    I'm always looking to incorporate new technologies into my
-                    projects, as they improve on the efficiency and optimisation
-                    for the modern program.
+                    I&apos;m always looking to incorporate new technologies into
+                    my projects, as they improve on the efficiency and
+                    optimisation for the modern program.
                 </h2>
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-4">
                     <Technology name="Typescript" icon={SiTypescript} />

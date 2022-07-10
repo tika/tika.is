@@ -1,19 +1,13 @@
-import { Logo } from "../components/Logo";
-import { NavItem } from "../components/NavItem";
-import Status from "../components/Status";
-import { useEffect, useRef, useState } from "react";
-import { useLanyard } from "react-use-lanyard";
+import { useRef } from "react";
 import config from "../../tikac.json";
 import { GetServerSideProps } from "next";
 import axios from "axios";
-import Image from "next/image";
 import Technology from "../components/Technology";
 import {
     SiAmazons3,
     SiFirebase,
     SiGradle,
     SiJava,
-    SiJavascript,
     SiMongodb,
     SiNextdotjs,
     SiPostgresql,
@@ -99,7 +93,7 @@ export default function Home(props: Props) {
                             )
                         )
                         .map((it, i) => (
-                            <ListProjectItem project={it} />
+                            <ListProjectItem key={it.url} project={it} />
                         ))}
                 </div>
             </div>

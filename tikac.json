@@ -1,0 +1,12 @@
+{
+    "inactive_img": "https://i.imgur.com/3JAWg25.png",
+    "inactive_text": "doing nothing",
+    "apps": [
+        {
+            "app": "webstorm",
+            "heading": "using **WebStorm**",
+            "subheading": "coding %d"
+        }
+    ],
+    "discord_id": "323167091119357953"
+}

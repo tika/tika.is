@@ -83,12 +83,12 @@ export default function Home(props: Props) {
                     Below is a list of a few projects. While not exhaustive,
                     these are a few of my favourites. You can find write ups on
                     projects{" "}
-                    <a
+                    <Link
                         href="/projects"
                         className="underline cursor-pointer hover:text-theme"
                     >
                         here
-                    </a>
+                    </Link>
                     .
                 </h2>
             </div>

@@ -3,7 +3,6 @@ import axios from "axios";
 
 export default createEndpoint<CrucialData>({
     GET: async (req, res) => {
-        // find number of private repos
         let repos: Repo[] = [];
         let page = 1;
 

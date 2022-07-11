@@ -41,14 +41,6 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                         </div>
 
                         <div className="flex flex-col gap-2 mt-8">
-                            {/* <NavItem
-                                className={bigNav}
-                                onClick={() => setHamburgerOpened(false)}
-                                destination="/"
-                                selected={router.asPath === ""}
-                            >
-                                home
-                            </NavItem> */}
                             <NavMenuItem
                                 destination="/"
                                 onClick={() => setHamburgerOpened(false)}
@@ -109,7 +101,7 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                 <GiHamburgerMenu className="w-6 h-6" />
                             </div>
                         </div>
-                        <div className="sm:flex hidden w-64">
+                        <div className="sm:flex hidden min-w-max">
                             <Status lanyard={status} />
                         </div>
                     </div>

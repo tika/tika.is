@@ -1,6 +1,4 @@
 import React from "react";
-import Image from "next/image";
-import config from "../../tikac.json";
 import { IconType } from "react-icons/lib";
 
 interface StatusItemProps {

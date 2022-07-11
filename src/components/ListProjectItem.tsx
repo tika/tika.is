@@ -15,8 +15,8 @@ export function ListProjectItem({
 
     return (
         <Link href={destination}>
-            <div className="flex rounded-xl border-gray-100 border-solid overflow-hidden border cursor-pointer hover:bg-gray-100 h-28">
-                <div className={`${col} w-48 min-w-48`}>
+            <div className="flex flex-col sm:flex-row rounded-xl border-gray-100 border-solid overflow-hidden border cursor-pointer hover:bg-gray-100 sm:h-28">
+                <div className={`${col} sm:w-48 sm:min-w-48`}>
                     <span className={title}>name</span>
                     {project.visibility === "private" ? (
                         <div className="flex gap-1 items-center">
@@ -29,7 +29,7 @@ export function ListProjectItem({
                 </div>
 
                 <div
-                    className={`${col} border-x border-gray-100 w-32 min-w-32`}
+                    className={`${col} border-y sm:border-x border-gray-100 sm:w-32 sm:min-w-32`}
                 >
                     <span className={title}>language</span>
                     <div className="flex gap-2 items-center">

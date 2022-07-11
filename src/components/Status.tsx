@@ -1,7 +1,6 @@
-import { LanyardData, LanyardWebsocket, useLanyard } from "react-use-lanyard";
+import { LanyardData } from "react-use-lanyard";
 import { StatusItem } from "./StatusItem";
 import config from "../../tikac.json";
-import Loader from "react-ts-loaders/dist";
 import { SiSpotify, SiVisualstudiocode, SiZeromq } from "react-icons/si";
 
 interface StatusProps {

@@ -1,4 +1,3 @@
-import { useRouter } from "next/router.js";
 import { NavItem } from "./NavItem";
 
 interface Props {

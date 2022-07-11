@@ -17,6 +17,10 @@ export default createEndpoint<CrucialData>({
             redis.set("colors", JSON.stringify(colors), "EX", 60 * 60 * 24);
         }
 
+        if (typeof colors === "string") {
+            colors = JSON.parse(colors);
+        }
+
         // if i've already got all the info, then there's no point in refetching
         // sidenote: not entirely sure if this is "good" design, but it works
         const recent = await redis.get("data");

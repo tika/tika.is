@@ -134,16 +134,22 @@ export default function Home(props: Props) {
 
             <hr />
 
-            <div className="flex py-4 px-12">
-                <div className="w-1/2">
+            <div className="flex mt-8 py-4 px-12 justify-evenly">
+                <div>
                     <h1 className="font-semibold text-2xl">Tika</h1>
                     <h2 className="text-xl">Software Engineer</h2>
                 </div>
-                <div className="w-1/2">
+                <div>
                     <h1 className="font-semibold text-2xl">Projects</h1>
-                    {config.footer_projects.map((it, i) => (
-                        <span key={i}>{it}</span>
-                    ))}
+                    {props.crucial.repos
+                        .filter((it) =>
+                            config.footer_projects.includes(
+                                it.name.toLowerCase()
+                            )
+                        )
+                        .map((it, i) => (
+                            <span key={i}>{it.name}</span>
+                        ))}
                 </div>
             </div>
         </div>

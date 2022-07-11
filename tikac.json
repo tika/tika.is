@@ -9,5 +9,15 @@
         }
     ],
     "discord_id": "323167091119357953",
-    "favourite_projects": ["tika.is", "preplar", "vival-v2", "xiong", "terminal", "lcd-screen-drawer", "sphericalmines", "rave"]
+    "favourite_projects": [
+        "tika.is",
+        "preplar",
+        "vival-v2",
+        "xiong",
+        "terminal",
+        "lcd-screen-drawer",
+        "sphericalmines",
+        "rave"
+    ],
+    "footer_projects": ["preplar"]
 }

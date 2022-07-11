@@ -28,6 +28,7 @@ export default function Status(props: StatusProps) {
             <StatusItem
                 text={`listening to ${status.spotify.artist.split(";")[0]}`}
                 icon={SiSpotify}
+                url={`https://open.spotify.com/track/${status.spotify.track_id}`}
             />
         );
     }

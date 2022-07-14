@@ -26,7 +26,13 @@ import Rings from "../public/Rings clay.png";
 import Marshmallow from "../public/Marshmallow clay.png";
 import Image from "next/image.js";
 
-export default function Home({ className }: { className: string }) {
+export default function Home({
+    className,
+    navHeight,
+}: {
+    className: string;
+    navHeight: number;
+}) {
     const next = useRef<HTMLDivElement | null>(null);
     const { data, error } = useSWR<CrucialData>("/api/crucial");
 
@@ -90,10 +96,12 @@ export default function Home({ className }: { className: string }) {
 
                         <div className="absolute bottom-0 left-1/2">
                             <div
-                                onClick={() =>
-                                    next.current &&
-                                    next.current.scrollIntoView()
-                                }
+                                onClick={() => {
+                                    if (!next.current) return;
+                                    window.scrollTo({
+                                        top: next.current.offsetTop - navHeight - 30,
+                                    });
+                                }}
                                 className="w-8 h-8 border-theme border-4 rounded-full absolute cursor-pointer left-1/2"
                             />
                         </div>

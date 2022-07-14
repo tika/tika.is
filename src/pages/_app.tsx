@@ -7,7 +7,7 @@ import { useLanyard } from "react-use-lanyard";
 import config from "../../tikac.json";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavMenuItem } from "../components/NavMenuItem";
 import { SWRConfig } from "swr";
 import axios from "axios";
@@ -21,6 +21,7 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
     });
     const [hamburgerOpened, setHamburgerOpened] = useState(false);
     const [atTop, setAtTop] = useState(false);
+    const navRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         const onScroll = () => setAtTop(window.pageYOffset === 0);
@@ -96,6 +97,7 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                             !atTop &&
                             "bg-white backdrop-blur shadow-lg opacity-95"
                         }`}
+                        ref={navRef}
                     >
                         <div className="py-4 px-6 md:px-20 xl:px-64">
                             <div className="flex h-16 justify-between">
@@ -126,6 +128,9 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                     </header>
                     <Component
                         className="px-6 md:px-20 xl:px-64 mt-24"
+                        navHeight={
+                            navRef.current ? navRef.current.clientHeight : 100
+                        }
                         {...pageProps}
                     />
                 </div>

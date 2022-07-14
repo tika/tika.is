@@ -1,6 +1,7 @@
 import { createEndpoint } from "../../lib/endpoint";
 import axios from "axios";
 import redis from "../../lib/redis";
+import { NextResponse } from "next/server.js";
 
 export default createEndpoint<CrucialData>({
     GET: async (req, res) => {
@@ -72,7 +73,7 @@ export default createEndpoint<CrucialData>({
         // updates every 30 mins
         redis.set("data", JSON.stringify(data), "EX", 60 * 30);
 
-        res.send(data);
+        res.json(data);
     },
 });
 

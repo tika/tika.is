@@ -7,8 +7,12 @@ import { useLanyard } from "react-use-lanyard";
 import config from "../../tikac.json";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavMenuItem } from "../components/NavMenuItem";
+import { SWRConfig } from "swr";
+import axios from "axios";
+
+const fetcher = (url: string) => axios.get(url).then(({ data }) => data);
 
 export default function PortfolioApp({ Component, pageProps }: AppProps) {
     const { loading: lanyardLoading, status } = useLanyard({
@@ -16,14 +20,20 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
         socket: true,
     });
     const [hamburgerOpened, setHamburgerOpened] = useState(false);
+    const [atTop, setAtTop] = useState(false);
 
-    const bigNav =
-        "font-medium text-lg py-4 px-6 cursor-pointer rounded hover:bg-gray-100 hover:text-theme transistion duration-150";
+    useEffect(() => {
+        const onScroll = () => setAtTop(window.pageYOffset === 0);
+        window.document.addEventListener("scroll", onScroll);
+        return () => window.document.removeEventListener("scroll", onScroll);
+    }, []);
 
     return (
-        <>
+        <SWRConfig value={{ fetcher }}>
             {hamburgerOpened ? (
-                <div className="px-6 py-5 flex flex-col justify-between h-screen">
+                <div
+                    className={`px-6 py-5 flex flex-col justify-between h-screen`}
+                >
                     <div>
                         <div className="flex items-center justify-between">
                             <Logo className="h-16 w-16" />
@@ -80,34 +90,46 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                     </div>
                 </div>
             ) : (
-                <div className="py-5 px-6 md:px-20 xl:px-64">
-                    <div className="flex h-16 justify-between">
-                        <div className="flex sm:gap-10 sm:justify-start justify-between items-center w-full">
-                            <Logo className="h-16 w-16" />
-                            <div className="hidden sm:flex items-center gap-5">
-                                <NavItem destination="/">home</NavItem>
-                                <NavItem>contact</NavItem>
-                                <NavItem>about</NavItem>
-                                <NavItem destination="/projects">
-                                    projects
-                                </NavItem>
-                            </div>
-                            <div
-                                className="p-2 bg-theme rounded cursor-pointer hover:shadow-xl duration-150 transition flex sm:hidden"
-                                onClick={() =>
-                                    setHamburgerOpened(!hamburgerOpened)
-                                }
-                            >
-                                <GiHamburgerMenu className="w-6 h-6" />
+                <div className="flex flex-col min-h-screen overflow-hidden">
+                    <header
+                        className={`fixed w-full z-50 md:bg-opacity-90 transition duration-300 ease-in-out ${
+                            !atTop &&
+                            "bg-white backdrop-blur shadow-lg opacity-95"
+                        }`}
+                    >
+                        <div className="py-4 px-6 md:px-20 xl:px-64">
+                            <div className="flex h-16 justify-between">
+                                <div className="flex sm:gap-10 sm:justify-start justify-between items-center w-full">
+                                    <Logo className="h-16 w-16" />
+                                    <div className="hidden sm:flex items-center gap-5">
+                                        <NavItem destination="/">home</NavItem>
+                                        <NavItem>contact</NavItem>
+                                        <NavItem>about</NavItem>
+                                        <NavItem destination="/projects">
+                                            projects
+                                        </NavItem>
+                                    </div>
+                                    <div
+                                        className="p-2 bg-theme rounded cursor-pointer hover:shadow-xl duration-150 transition flex sm:hidden"
+                                        onClick={() =>
+                                            setHamburgerOpened(!hamburgerOpened)
+                                        }
+                                    >
+                                        <GiHamburgerMenu className="w-6 h-6" />
+                                    </div>
+                                </div>
+                                <div className="sm:flex hidden min-w-max">
+                                    <Status lanyard={status} />
+                                </div>
                             </div>
                         </div>
-                        <div className="sm:flex hidden min-w-max">
-                            <Status lanyard={status} />
-                        </div>
-                    </div>
-                    <Component {...pageProps} />
+                    </header>
+                    <Component
+                        className="px-6 md:px-20 xl:px-64 mt-24"
+                        {...pageProps}
+                    />
                 </div>
             )}
-        </>
+        </SWRConfig>
     );
 }

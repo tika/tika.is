@@ -1,5 +1,14 @@
 // Todo: add more colours
-const colours = ["bg-red-100", "bg-blue-100", "bg-green-100"];
+const colours = [
+    "bg-blue-100",
+    "bg-blue-200",
+    "bg-blue-300",
+    "bg-blue-400",
+    "bg-blue-500",
+    "bg-blue-600",
+    "bg-blue-700",
+    "bg-blue-800",
+];
 
 // Given a string, x, return a colour from an array
 export function getTagColour(x: string) {

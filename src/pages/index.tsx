@@ -24,24 +24,19 @@ import Loader from "react-ts-loaders/dist/index";
 import Spiral from "../public/Spiral clay.png";
 import Rings from "../public/Rings clay.png";
 import Marshmallow from "../public/Marshmallow clay.png";
-import Image from "next/image.js";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Home({
     className,
     navHeight,
+    data,
 }: {
     className: string;
     navHeight: number;
+    data: CrucialData;
 }) {
     const next = useRef<HTMLDivElement | null>(null);
-    const { data, error } = useSWR<CrucialData>("/api/crucial");
-
-    if (error)
-        return (
-            <h1>
-                {error.name} - {error.message}
-            </h1>
-        );
 
     return (
         <div className={className}>
@@ -53,7 +48,16 @@ export default function Home({
                         }}
                         className="relative py-16 flex flex-col justify-between"
                     >
-                        <div className="absolute w-1/2 bottom-32 sm:bottom-1/4 rotate-12 left-16 sm:left-16 sm:w-1/2 select-none">
+                        <motion.div
+                            animate={{ y: [15, -10, 15] }}
+                            transition={{
+                                duration: 5,
+                                ease: "easeInOut",
+                                repeat: Infinity,
+                                repeatDelay: 0,
+                            }}
+                            className="absolute w-1/2 bottom-32 sm:bottom-1/4 rotate-12 left-16 sm:left-16 sm:w-1/2 select-none"
+                        >
                             <Image
                                 src={Rings}
                                 className="object-scale-down opacity-50"
@@ -63,9 +67,18 @@ export default function Home({
                                     filter: "grayscale(100%) brightness(40%) sepia(100%) hue-rotate(146deg) saturate(600%) contrast(0.8)",
                                 }}
                             />
-                        </div>
+                        </motion.div>
 
-                        <div className="absolute w-2/6 top-1/4 sm:top-8 right-8 sm:right-16 sm:w-1/4 select-none">
+                        <motion.div
+                            animate={{ y: [15, 0, 15] }}
+                            transition={{
+                                duration: 10,
+                                ease: "easeInOut",
+                                repeat: Infinity,
+                                repeatDelay: 0,
+                            }}
+                            className="absolute w-2/6 top-8 right-8 sm:right-16 sm:w-1/4 select-none"
+                        >
                             <Image
                                 src={Marshmallow}
                                 className="object-scale-down opacity-50"
@@ -75,7 +88,7 @@ export default function Home({
                                     filter: "grayscale(100%) brightness(50%) sepia(100%) hue-rotate(146deg) saturate(600%) contrast(0.8)",
                                 }}
                             />
-                        </div>
+                        </motion.div>
 
                         <div className="text-black h-full flex flex-col justify-center items-center">
                             <div className="flex">
@@ -99,10 +112,13 @@ export default function Home({
                                 onClick={() => {
                                     if (!next.current) return;
                                     window.scrollTo({
-                                        top: next.current.offsetTop - navHeight - 30,
+                                        top:
+                                            next.current.offsetTop -
+                                            navHeight -
+                                            30,
                                     });
                                 }}
-                                className="w-8 h-8 border-theme border-4 rounded-full absolute cursor-pointer left-1/2"
+                                className="w-8 h-8 shadow-lg border-theme border-4 rounded-full cursor-pointer"
                             />
                         </div>
                     </div>
@@ -174,32 +190,6 @@ export default function Home({
                             <Technology name="Firebase" icon={SiFirebase} />
                             <Technology name="Amazon S3" icon={SiAmazons3} />
                             <Technology name="Redis" icon={SiRedis} />
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div className="flex mt-8 py-4 px-3 sm:px-12 sm:justify-evenly justify-between">
-                        <div>
-                            <h1 className="font-semibold text-2xl">Tika</h1>
-                            <h2 className="text-xl">Software Engineer</h2>
-                        </div>
-                        <div>
-                            <h1 className="font-semibold text-2xl">Projects</h1>
-                            {data.repos
-                                .filter((it) =>
-                                    config.footer_projects.includes(
-                                        it.name.toLowerCase()
-                                    )
-                                )
-                                .map((it, i) => (
-                                    <span
-                                        key={i}
-                                        className="hover:text-theme transition duration-100 cursor-pointer text-lg"
-                                    >
-                                        {it.name}
-                                    </span>
-                                ))}
                         </div>
                     </div>
                 </>

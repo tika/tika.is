@@ -24,18 +24,18 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
     const navRef = useRef<HTMLElement | null>(null);
     const { data, error } = useSWR<CrucialData>("/api/crucial");
 
+    useEffect(() => {
+        const onScroll = () => setAtTop(window.pageYOffset === 0);
+        window.document.addEventListener("scroll", onScroll);
+        return () => window.document.removeEventListener("scroll", onScroll);
+    }, []);
+
     if (error)
         return (
             <h1>
                 {error.name} - {error.message}
             </h1>
         );
-
-    useEffect(() => {
-        const onScroll = () => setAtTop(window.pageYOffset === 0);
-        window.document.addEventListener("scroll", onScroll);
-        return () => window.document.removeEventListener("scroll", onScroll);
-    }, []);
 
     return (
         <SWRConfig value={{ fetcher }}>

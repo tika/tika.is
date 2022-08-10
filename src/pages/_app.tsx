@@ -24,12 +24,6 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
     const navRef = useRef<HTMLElement | null>(null);
     const router = useRouter();
 
-    // Refresh page if there's an error
-    if (error) {
-        router.reload();
-        return null;
-    }
-
     useEffect(() => {
         const onScroll = () => setAtTop(window.pageYOffset === 0);
         window.document.addEventListener("scroll", onScroll);
@@ -49,6 +43,12 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                 },
             }
         );
+    }
+
+    // Refresh page if there's an error
+    if (error) {
+        router.reload();
+        return null;
     }
 
     return (

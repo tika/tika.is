@@ -12,6 +12,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { CrucialData } from "../lib/portfolio";
 import Link from "next/link";
+import toast, { ToastBar, Toaster } from "react-hot-toast";
 
 const fetcher = (url: string) => axios.get(url).then(({ data }) => data);
 
@@ -35,8 +36,24 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
         return () => window.document.removeEventListener("scroll", onScroll);
     }, []);
 
+    function discordClick() {
+        navigator.clipboard.writeText("tika#5703");
+        toast(
+            <span>
+                Copied <b>Discord</b> tag to clipboard
+            </span>,
+            {
+                icon: "🔗",
+                style: {
+                    borderRadius: "100em",
+                },
+            }
+        );
+    }
+
     return (
         <SWRConfig value={{ fetcher }}>
+            <Toaster position="bottom-left" />
             {hamburgerOpened ? (
                 <div
                     className={`px-6 py-5 flex flex-col justify-between h-screen`}
@@ -143,9 +160,9 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                             {...pageProps}
                         />
                     </div>
-                    <div className="mt-8 py-4 px-3 sm:px-12">
+                    <div className="mt-8 py-4 px-8 md:px-64">
                         <hr />
-                        <div className="flex py-4 sm:justify-evenly justify-between">
+                        <div className="flex py-4 px-16 justify-between">
                             <div>
                                 <h1 className="font-semibold text-2xl">Tika</h1>
                                 <h2 className="text-xl">Software Engineer</h2>
@@ -165,6 +182,12 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                         <Link href="mailto:captika@outlook.com">
                                             <a>Mail</a>
                                         </Link>
+                                    </li>
+                                    <li
+                                        className="hover:opacity-80 text-lg cursor-pointer"
+                                        onClick={discordClick}
+                                    >
+                                        <a>Discord</a>
                                     </li>
                                 </ul>
                             </div>

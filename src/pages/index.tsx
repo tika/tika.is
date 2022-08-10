@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import config from "../../tikac.json";
 import Technology from "../components/Technology";
 import {
     SiAmazons3,
@@ -208,7 +207,7 @@ export default function Home({
                         style={{
                             height: "calc(100vh - (0.25rem * 40))",
                         }}
-                        className="relative py-16 flex items-center justify-center"
+                        className="relative py-16 w-full flex items-center justify-center"
                     >
                         <Loader type="ripple" color="#aaaa" />
                     </div>

@@ -2,7 +2,9 @@ interface CrucialData {
     pinned: PinnedRepo[];
 }
 
-export type PinnedRepo = {
+type PinnedRepo = PinnedRepoResponse & { url: string };
+
+export type PinnedRepoResponse = {
     owner: string;
     repo: string;
     description: string;

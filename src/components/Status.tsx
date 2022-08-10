@@ -1,6 +1,6 @@
 import { useLanyard } from "use-lanyard";
 import { StatusItem } from "./StatusItem";
-import config from "../../tikac.json";
+import config from "../../portfolio-config.json";
 import { SiSpotify, SiVisualstudiocode, SiZeromq } from "react-icons/si";
 
 const noStatus = <StatusItem text={config.inactive_text} icon={SiZeromq} />;

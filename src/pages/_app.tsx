@@ -10,7 +10,8 @@ import { NavMenuItem } from "../components/NavMenuItem";
 import useSWR, { SWRConfig } from "swr";
 import axios from "axios";
 import { useRouter } from "next/router";
-import config from "../../tikac.json";
+import { CrucialData } from "../lib/portfolio";
+import Link from "next/link";
 
 const fetcher = (url: string) => axios.get(url).then(({ data }) => data);
 
@@ -69,12 +70,6 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                 extra="more about me outside programming"
                             />
                             <NavMenuItem
-                                destination="/contact"
-                                onClick={() => setHamburgerOpened(false)}
-                                name="contact"
-                                extra="contact info."
-                            />
-                            <NavMenuItem
                                 destination="/projects"
                                 onClick={() => setHamburgerOpened(false)}
                                 name="projects"
@@ -115,9 +110,6 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                             </NavItem>
                                             <NavItem destination="/about">
                                                 about
-                                            </NavItem>
-                                            <NavItem destination="/contact">
-                                                contact
                                             </NavItem>
                                             <NavItem destination="/projects">
                                                 projects
@@ -160,23 +152,21 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                             </div>
                             <div>
                                 <h1 className="font-semibold text-2xl">
-                                    Projects
+                                    Connect
                                 </h1>
 
-                                {data?.repos
-                                    .filter((it) =>
-                                        config.footer_projects.includes(
-                                            it.name.toLowerCase()
-                                        )
-                                    )
-                                    .map((it, i) => (
-                                        <span
-                                            key={i}
-                                            className="hover:text-theme transition duration-100 cursor-pointer text-lg"
-                                        >
-                                            {it.name}
-                                        </span>
-                                    ))}
+                                <ul>
+                                    <li className="hover:opacity-80 text-lg">
+                                        <Link href="https://github.com/tika">
+                                            <a>GitHub</a>
+                                        </Link>
+                                    </li>
+                                    <li className="hover:opacity-80 text-lg">
+                                        <Link href="mailto:captika@outlook.com">
+                                            <a>Mail</a>
+                                        </Link>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,3 @@
-import Link from "next/link.js";
 import { useRouter } from "next/router.js";
 import React from "react";
 import { IconType } from "react-icons/lib";

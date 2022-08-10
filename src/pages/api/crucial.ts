@@ -1,20 +1,22 @@
 import { createEndpoint } from "../../lib/endpoint";
 import axios from "axios";
-import { CrucialData, PinnedRepo } from "../../lib/portfolio";
+import {
+    CrucialData,
+    PinnedRepo,
+    PinnedRepoResponse,
+} from "../../lib/portfolio";
 import redis from "../../lib/redis";
 
 // Redis keys
 const PINNED_REPO_KEY = "pinned";
 
-type MutatedPinnedRepo = PinnedRepo & { url: string };
-
 export default createEndpoint<CrucialData>({
     GET: async (req, res) => {
-        let pinned: MutatedPinnedRepo[] = [];
+        let pinned: PinnedRepo[] = [];
         let redisPinned = await redis.get(PINNED_REPO_KEY);
 
         if (!redisPinned) {
-            const pResp = await axios.get<PinnedRepo[]>(
+            const pResp = await axios.get<PinnedRepoResponse[]>(
                 "https://gh-pinned-repos.egoist.dev/?username=tika"
             );
 

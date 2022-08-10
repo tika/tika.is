@@ -1,34 +1,29 @@
-import { LanyardData } from "react-use-lanyard";
+import { useLanyard } from "use-lanyard";
 import { StatusItem } from "./StatusItem";
 import config from "../../tikac.json";
 import { SiSpotify, SiVisualstudiocode, SiZeromq } from "react-icons/si";
 
-interface StatusProps {
-    lanyard: LanyardData | undefined;
-}
+const noStatus = <StatusItem text={config.inactive_text} icon={SiZeromq} />;
 
-export default function Status(props: StatusProps) {
-    const status = props.lanyard;
+export default function Status() {
+    const { data: activity } = useLanyard(config.discord_id);
 
-    if (!status || !status.activities || status.activities.length === 0) {
-        return <StatusItem text={config.inactive_text} icon={SiZeromq} />;
-    }
+    if (!activity || activity.activities.length === 0) return noStatus;
 
-    const { name, details, assets, application_id, ...rest } =
-        status.activities[0];
+    const { name, details } = activity.activities[0];
 
-    if (assets && application_id) {
-        const { name: heading, details: text } = getText({ name, details });
+    if (name) {
+        const { details: text } = getText({ name, details });
 
         return <StatusItem text={text} icon={SiVisualstudiocode} />;
     }
 
-    if (status.spotify) {
+    if (activity.spotify) {
         return (
             <StatusItem
-                text={`listening to ${status.spotify.artist.split(";")[0]}`}
+                text={`listening to ${activity.spotify.artist.split(";")[0]}`}
                 icon={SiSpotify}
-                url={`https://open.spotify.com/track/${status.spotify.track_id}`}
+                url={`https://open.spotify.com/track/${activity.spotify.track_id}`}
             />
         );
     }
@@ -51,7 +46,7 @@ function getText({ name, details }: Info): Info & { details: string } {
     if (apps.length === 0) {
         return {
             name,
-            details: details ?? "", // TODO
+            details: details ?? `Using ${name}`, // TODO
         };
     }
 

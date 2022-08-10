@@ -1,7 +1,7 @@
 import { createEndpoint } from "../../lib/endpoint";
 import axios from "axios";
 import redis from "../../lib/redis";
-import { NextResponse } from "next/server.js";
+import { env } from "../../lib/env";
 
 export default createEndpoint<CrucialData>({
     GET: async (req, res) => {
@@ -40,7 +40,7 @@ export default createEndpoint<CrucialData>({
                     `https://api.github.com/user/repos?per_page=100&page=${page}`,
                     {
                         headers: {
-                            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+                            Authorization: `token ${env.GITHUB_TOKEN}`,
                         },
                     }
                 )

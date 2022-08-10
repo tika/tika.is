@@ -1,4 +1,5 @@
 import { NextApiHandler } from "next";
+import { env } from "./env";
 
 export type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -23,7 +24,7 @@ export function createEndpoint<Resource>(
         } catch (err) {
             if (err instanceof Error) {
                 res.status(500).json({
-                    message: process.env.NODE_ENV
+                    message: env.NODE_ENV
                         ? err.message
                         : "Something went wrong.",
                 });

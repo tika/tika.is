@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { Logo } from "../components/Logo";
 import { NavItem } from "../components/NavItem";
 import Status from "../components/Status";
-import { useLanyard } from "react-use-lanyard";
 import config from "../../tikac.json";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -15,14 +14,11 @@ import axios from "axios";
 const fetcher = (url: string) => axios.get(url).then(({ data }) => data);
 
 export default function PortfolioApp({ Component, pageProps }: AppProps) {
-    const { loading: lanyardLoading, status } = useLanyard({
-        userId: config.discord_id,
-        socket: true,
-    });
+    const { data, error } = useSWR<CrucialData>("/api/crucial", fetcher);
+
     const [hamburgerOpened, setHamburgerOpened] = useState(false);
     const [atTop, setAtTop] = useState(false);
     const navRef = useRef<HTMLElement | null>(null);
-    const { data, error } = useSWR<CrucialData>("/api/crucial");
 
     useEffect(() => {
         const onScroll = () => setAtTop(window.pageYOffset === 0);
@@ -30,12 +26,13 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
         return () => window.document.removeEventListener("scroll", onScroll);
     }, []);
 
-    if (error)
+    if (error) {
         return (
             <h1>
                 {error.name} - {error.message}
             </h1>
         );
+    }
 
     return (
         <SWRConfig value={{ fetcher }}>
@@ -138,7 +135,7 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                         </div>
                                     </div>
                                     <div className="sm:flex hidden min-w-max">
-                                        <Status lanyard={status} />
+                                        <Status />
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +153,7 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                     </div>
                     <div className="mt-8 py-4 px-3 sm:px-12">
                         <hr />
-                        <div className="flex sm:justify-evenly justify-between">
+                        <div className="flex py-4 sm:justify-evenly justify-between">
                             <div>
                                 <h1 className="font-semibold text-2xl">Tika</h1>
                                 <h2 className="text-xl">Software Engineer</h2>

@@ -19,11 +19,7 @@ import {
 import { HiLocationMarker } from "react-icons/hi";
 import { ListProjectItem } from "../components/ListProjectItem";
 import Link from "next/link.js";
-import useSWR from "swr";
 import Loader from "react-ts-loaders/dist/index";
-import Spiral from "../public/Spiral clay.png";
-import Rings from "../public/Rings clay.png";
-import Marshmallow from "../public/Marshmallow clay.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -56,13 +52,15 @@ export default function Home({
                                 repeat: Infinity,
                                 repeatDelay: 0,
                             }}
-                            className="absolute w-1/2 bottom-32 sm:bottom-1/4 rotate-12 left-16 sm:left-16 sm:w-1/2 select-none"
+                            className="absolute w-1/2 bottom-40 sm:bottom-10 rotate-12 left-16 sm:left-16 sm:w-1/2 select-none"
                         >
                             <Image
-                                src={Rings}
+                                src="/Rings clay.png"
                                 className="object-scale-down opacity-50"
                                 draggable="false"
                                 alt="Planet 1"
+                                width="500px"
+                                height="500px"
                                 style={{
                                     filter: "grayscale(100%) brightness(40%) sepia(100%) hue-rotate(146deg) saturate(600%) contrast(0.8)",
                                 }}
@@ -80,10 +78,12 @@ export default function Home({
                             className="absolute w-2/6 top-8 right-8 sm:right-16 sm:w-1/4 select-none"
                         >
                             <Image
-                                src={Marshmallow}
+                                src="/Marshmallow clay.png"
                                 className="object-scale-down opacity-50"
                                 draggable="false"
                                 alt="Planet 2"
+                                width="100%"
+                                height="100%"
                                 style={{
                                     filter: "grayscale(100%) brightness(50%) sepia(100%) hue-rotate(146deg) saturate(600%) contrast(0.8)",
                                 }}
@@ -95,12 +95,12 @@ export default function Home({
                                 <h1 className="text-9xl font-bold">TIKA</h1>
 
                                 <Link
-                                    href="https://earth.google.com/web/search/Saturn"
+                                    href="https://earth.google.com/web/search/Earth"
                                     className="rounded-full drop-shadow-lg font-semibold text-xs"
                                 >
-                                    <div className="h-8 flex justify-center items-center gap-2 hover:opacity-50 cursor-pointer z-20 bg-white rounded-full px-2 shadow-md">
-                                        <HiLocationMarker className="text-theme" />
-                                        S.🪐
+                                    <div className="h-8 flex justify-center items-center gap-2 hover:opacity-50 cursor-pointer z-20 bg-white rounded-full px-2 shadow-md bg-gradient-to-r from-theme to-blue-500 text-white">
+                                        <HiLocationMarker className="text-white" />
+                                        Ea.
                                     </div>
                                 </Link>
                             </div>
@@ -130,9 +130,9 @@ export default function Home({
                             crafted {data.privateRepoCount} private &{" "}
                             {data.publicRepoCount} public repositories on{" "}
                             <Link href="https://github.com/tika/">
-                                <span className="underline cursor-pointer hover:text-theme">
+                                <a className="underline cursor-pointer hover:text-theme">
                                     my GitHub
-                                </span>
+                                </a>
                             </Link>
                             . I primarily use GitHub to keep a backup for my
                             code, and since it&apos;s hosted on the cloud, I can
@@ -145,9 +145,9 @@ export default function Home({
                             exhaustive, these are a few of my favourites. You
                             can find write ups on projects{" "}
                             <Link href="/projects">
-                                <span className="underline cursor-pointer hover:text-theme">
+                                <a className="underline cursor-pointer hover:text-theme">
                                     here
-                                </span>
+                                </a>
                             </Link>
                             .
                         </h2>

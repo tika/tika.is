@@ -3,13 +3,14 @@ import type { AppProps } from "next/app";
 import { Logo } from "../components/Logo";
 import { NavItem } from "../components/NavItem";
 import Status from "../components/Status";
-import config from "../../tikac.json";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
 import { NavMenuItem } from "../components/NavMenuItem";
 import useSWR, { SWRConfig } from "swr";
 import axios from "axios";
+import { useRouter } from "next/router";
+import config from "../../tikac.json";
 
 const fetcher = (url: string) => axios.get(url).then(({ data }) => data);
 
@@ -19,20 +20,19 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
     const [hamburgerOpened, setHamburgerOpened] = useState(false);
     const [atTop, setAtTop] = useState(false);
     const navRef = useRef<HTMLElement | null>(null);
+    const router = useRouter();
+
+    // Refresh page if there's an error
+    if (error) {
+        router.reload();
+        return null;
+    }
 
     useEffect(() => {
         const onScroll = () => setAtTop(window.pageYOffset === 0);
         window.document.addEventListener("scroll", onScroll);
         return () => window.document.removeEventListener("scroll", onScroll);
     }, []);
-
-    if (error) {
-        return (
-            <h1>
-                {error.name} - {error.message}
-            </h1>
-        );
-    }
 
     return (
         <SWRConfig value={{ fetcher }}>
@@ -113,11 +113,11 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                             <NavItem destination="/">
                                                 home
                                             </NavItem>
-                                            <NavItem destination="/contact">
-                                                contact
-                                            </NavItem>
                                             <NavItem destination="/about">
                                                 about
+                                            </NavItem>
+                                            <NavItem destination="/contact">
+                                                contact
                                             </NavItem>
                                             <NavItem destination="/projects">
                                                 projects
@@ -162,6 +162,7 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                 <h1 className="font-semibold text-2xl">
                                     Projects
                                 </h1>
+
                                 {data?.repos
                                     .filter((it) =>
                                         config.footer_projects.includes(

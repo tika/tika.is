@@ -4,7 +4,7 @@ import { IconType } from "react-icons/lib";
 
 interface StatusItemProps {
     text: string;
-    icon: IconType;
+    icon: IconType | null;
     url?: string;
 }
 
@@ -18,7 +18,9 @@ export function StatusItem(props: StatusItemProps) {
             }`}
             onClick={() => props.url && router.push(props.url)}
         >
-            <span>{props.icon({ className: "h-6 w-6 text-theme" })}</span>
+            {props.icon && (
+                <span>{props.icon({ className: "h-6 w-6 text-theme" })}</span>
+            )}
             <span>{props.text}</span>
         </div>
     );

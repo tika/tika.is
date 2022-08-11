@@ -1,7 +1,13 @@
 import { useLanyard } from "use-lanyard";
 import { StatusItem } from "./StatusItem";
 import config from "../../portfolio-config.json";
-import { SiSpotify, SiVisualstudiocode, SiZeromq } from "react-icons/si";
+import {
+    SiDiscord,
+    SiSpotify,
+    SiVisualstudiocode,
+    SiZeromq,
+} from "react-icons/si";
+import { IconType } from "react-icons/lib";
 
 const noStatus = <StatusItem text={config.inactive_text} icon={SiZeromq} />;
 
@@ -12,12 +18,6 @@ export default function Status() {
 
     const { name, details } = activity.activities[0];
 
-    if (name) {
-        const { details: text } = getText({ name, details });
-
-        return <StatusItem text={text} icon={SiVisualstudiocode} />;
-    }
-
     if (activity.spotify) {
         return (
             <StatusItem
@@ -26,6 +26,26 @@ export default function Status() {
                 url={`https://open.spotify.com/track/${activity.spotify.track_id}`}
             />
         );
+    }
+
+    if (name) {
+        const { details: text } = getText({ name, details });
+
+        let icon: IconType | null = null;
+
+        switch (name.toLowerCase()) {
+            case "discord":
+                icon = SiDiscord;
+                break;
+            case "code":
+                icon = SiVisualstudiocode;
+                break;
+            default:
+                icon = null;
+                break;
+        }
+
+        return <StatusItem text={text} icon={icon} />;
     }
 
     return <StatusItem text={config.inactive_text} icon={SiZeromq} />;
@@ -38,22 +58,8 @@ type Info = {
 
 // formats stuff
 function getText({ name, details }: Info): Info & { details: string } {
-    const apps = config.apps.filter(
-        (it) => it.app.toLowerCase() === name.toLowerCase()
-    );
-
-    // there are no configured apps with this name!
-    if (apps.length === 0) {
-        return {
-            name,
-            details: details ?? `Using ${name}`, // TODO
-        };
-    }
-
-    const subheading = apps[0].subheading.replaceAll("%d", details ?? "");
-
     return {
-        name: apps[0].heading,
-        details: subheading,
+        name,
+        details: details ?? `Using ${name}`,
     };
 }

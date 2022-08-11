@@ -1,27 +1,15 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React from "react";
 import { Tag } from "../../components/Tag";
+import WriteupHeader from "../../components/WriteupHeader";
+import { getPreviewWriteup } from "../../lib/writeups";
 
-export default function ProjectPage({ className }: { className: string }) {
+export default function PreplarPage({ className }: { className: string }) {
+    const project = getPreviewWriteup("Preplar");
+
     return (
         <div className={className}>
-            <div className="relative w-full h-32">
-                <Image
-                    src="https://res.cloudinary.com/demo/image/fetch/https://preplar.tika.is/Preview.png"
-                    layout="fill"
-                    objectFit="scale-down"
-                    alt="The Preplar app page"
-                />
-            </div>
-
-            <div className="mt-16 flex flex-col gap-4">
-                <h1 className="text-5xl font-bold">Preplar</h1>
-                <div className="flex gap-1">
-                    <Tag name="5 commits" />
-                    <Tag name="Javascript" />
-                </div>
-            </div>
+            <WriteupHeader {...project} />
 
             <div className="mt-8">
                 <p>

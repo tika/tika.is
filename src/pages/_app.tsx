@@ -86,12 +86,12 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                 name="about"
                                 extra="more about me outside programming"
                             />
-                            <NavMenuItem
+                            {/* <NavMenuItem
                                 destination="/projects"
                                 onClick={() => setHamburgerOpened(false)}
                                 name="projects"
                                 extra="stuff i've worked on"
-                            />
+                            /> */}
                         </div>
                     </div>
 
@@ -128,9 +128,9 @@ export default function PortfolioApp({ Component, pageProps }: AppProps) {
                                             <NavItem destination="/about">
                                                 about
                                             </NavItem>
-                                            <NavItem destination="/projects">
+                                            {/* <NavItem destination="/projects">
                                                 projects
-                                            </NavItem>
+                                            </NavItem> */}
                                         </div>
                                         <div
                                             className="p-2 bg-theme rounded cursor-pointer hover:shadow-xl duration-150 transition flex sm:hidden"
